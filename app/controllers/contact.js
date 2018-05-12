@@ -3,8 +3,8 @@ import { match, not, gte, and } from '@ember/object/computed';
 
 export default Controller.extend({
 
-    message: '',
     emailAddress: '',
+    message: '',
     responseMessage: '',
 
     isValidEmail: match('emailAddress', /^.+@.+\..+$/),
@@ -14,10 +14,21 @@ export default Controller.extend({
 
     actions: {
 
-        saveInvitation() {
-            alert(`Sending msg: ${this.get('message')}  from: ${this.get('emailAddress')}`);
-            this.set('responseMessage', `Thank you! We've just saved your email address: ${this.get('emailAddress')}`);
-            this.set('emailAddress', '');
+        sendMessage() {
+            var email = this.get('emailAddress');
+            var message = this.get('message');
+            var responseMessage = 'To: ' + email + ', Message: ' + message;
+
+            alert('Sending your message in progress... ');
+
+            const newContact = this.store.createRecord('contact', { email, message });
+
+            newContact.save().then(response => {
+                this.set('responseMessage', responseMessage);
+                this.set('emailAddress', '');
+                this.set('message', '');
+              });
+            
         }
     }
 
