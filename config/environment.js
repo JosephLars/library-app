@@ -61,7 +61,12 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    // here you can enable a production-specific feature
+    //config/environment.js
+    if (environment === 'production') {
+      ENV['ember-faker'] = {
+        enabled: true
+      };
+    }
   }
 
   return ENV;
