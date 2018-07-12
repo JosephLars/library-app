@@ -1,4 +1,3 @@
-
 // app/models/author.js
 import { empty } from '@ember/object/computed';
 import DS from 'ember-data';
